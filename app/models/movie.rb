@@ -1,6 +1,9 @@
 class Movie < ApplicationRecord
-    has_many :genres
-
+    has_many :reviews
+    has_many :movie_lists
+    has_many :movie_genres
+    has_many :lists, through: :movie_lists
+    has_many :genres, through: :movie_genres
 
     def self.get_movie_info 
 
