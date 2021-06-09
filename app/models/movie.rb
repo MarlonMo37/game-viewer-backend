@@ -27,18 +27,22 @@ class Movie < ApplicationRecord
            movie_info["audience_rating"] = movie["vote_rating"]
            movie_info["release_date"] = movie["release_date"]
 
-           self.find_or_create_by(movie_info)    
+           genre_ids = movie["genre_ids"]
+           selected_movie = self.find_or_create_by(movie_info)   
+
+           self.make_genre(selected_movie, genre_ids)
         end
     end
 
-    def self.make_genre(movie)
-        url = URI("https://api.themoviedb.org/3/genre/movie/list?api_key=6cb7579cc35c7ba28cadfc4c84a1227d&language=en-US")
+    def self.make_genre(movie, genre_ids)
+        url = URI("https://api.themoviedb.org/3/genre/movie/list?api_key=#{ENV["API_KEY"]}&language=en-US")
+        byebug
         response = Net::HTTP.get(url)
         info = JSON.parse(response)
-        movie_genre_ids = movie["genre_ids"]
-        movie_genre_ids.each do |id|
+        
+        genre_ids.each do |id|
             selected_genre = info["genres"].select {|genre| genre["id"] == id}
-            genre = Genre.find_or_create_by(name: selected_genre["name"])
+            genre = Genre.find_or_create_by(name: selected_genre[0]["name"])
             movie.genres << genre
         end
     end
