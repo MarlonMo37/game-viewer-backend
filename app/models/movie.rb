@@ -9,7 +9,7 @@ class Movie < ApplicationRecord
 
 
         img_url = "https://image.tmdb.org/t/p/w300"
-        url = URI("https://api.themoviedb.org/3/movie/top_rated?api_key=6cb7579cc35c7ba28cadfc4c84a1227d&language=en-US&page=1")
+        url = URI("https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV["API_KEY"]}&language=en-US&page=1")
 
         response = Net::HTTP.get(url)
         info = JSON.parse(response)
@@ -36,14 +36,15 @@ class Movie < ApplicationRecord
 
     def self.make_genre(movie, genre_ids)
         url = URI("https://api.themoviedb.org/3/genre/movie/list?api_key=#{ENV["API_KEY"]}&language=en-US")
-        byebug
         response = Net::HTTP.get(url)
         info = JSON.parse(response)
         
         genre_ids.each do |id|
             selected_genre = info["genres"].select {|genre| genre["id"] == id}
             genre = Genre.find_or_create_by(name: selected_genre[0]["name"])
-            movie.genres << genre
+            if !(movie.genres.include?(genre))
+                movie.genres << genre
+            end
         end
     end
 end
