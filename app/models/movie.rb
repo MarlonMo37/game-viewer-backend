@@ -4,6 +4,13 @@ class Movie < ApplicationRecord
     has_many :movie_genres
     has_many :lists, through: :movie_lists
     has_many :genres, through: :movie_genres
+    validates :title, presence: true
+    validates :poster_url, presence: true
+    validates :summary, presence: true
+    validates :audience_rating, presence: true
+    validates :release_date, presence: true
+
+
 
     def self.get_movie_info 
 
