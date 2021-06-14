@@ -31,7 +31,7 @@ class Movie < ApplicationRecord
            movie_info["title"] = movie["title"]
            movie_info["poster_url"] = img_url + movie["poster_path"]
            movie_info["summary"] = movie["overview"]
-           movie_info["audience_rating"] = movie["vote_rating"]
+           movie_info["audience_rating"] = movie["vote_average"]
            movie_info["release_date"] = movie["release_date"]
 
            genre_ids = movie["genre_ids"]
