@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 2021_06_07_195511) do
   create_table "reviews", force: :cascade do |t|
     t.string "written_review"
     t.integer "rating"
+    t.integer "movie_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_reviews_on_movie_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +73,5 @@ ActiveRecord::Schema.define(version: 2021_06_07_195511) do
   add_foreign_key "movie_genres", "movies"
   add_foreign_key "movie_lists", "lists"
   add_foreign_key "movie_lists", "movies"
+  add_foreign_key "reviews", "movies"
 end
