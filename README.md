@@ -1,24 +1,25 @@
-# README
+# Movie-reviewer API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to the Movie Reviewer API. Here is where all the information for the Movie Reviewer is stored. After this API is set up you can begin with the frontend here https://github.com/MarlonMo37/game-viewer
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+- Clone repository in terminal and open it 
 
-* System dependencies
+```bash 
+git clone git@github.com:MarlonMo37/game-viewer-backend.git
+```
 
-* Configuration
+- Use rails to create database and migrations 
 
-* Database creation
+```bash
+rails db:migrate
+```
 
-* Database initialization
+- Then start up the server in terminal
 
-* How to run the test suite
+```bash
+rails s
+```
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
